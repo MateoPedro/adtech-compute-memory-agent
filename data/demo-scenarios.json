@@ -1,0 +1,196 @@
+[
+  {
+    "schema_version": "1.0.0",
+    "data_classification": "synthetic",
+    "scenario_id": "scenario-peak-latency",
+    "title": "Peak traffic breaches the auction deadline",
+    "observed_at": "2026-08-18T17:30:00.000Z",
+    "workload": {
+      "type": "rtb_ranking",
+      "traffic_pattern": "peak_spike",
+      "requests_per_second": 174000,
+      "model_name": "rtb-ranking-v4"
+    },
+    "constraints": {
+      "max_p99_latency_ms": 20,
+      "max_error_rate_pct": 1,
+      "min_quality_score": 0.92,
+      "max_hourly_cost_usd": 30
+    },
+    "current_configuration": {
+      "cpu_traffic_pct": 90,
+      "gpu_traffic_pct": 10,
+      "cpu_replicas": 15,
+      "gpu_replicas": 1,
+      "batch_size": 4,
+      "max_queue_delay_ms": 1,
+      "execution_profile": "accurate"
+    },
+    "current_metrics": {
+      "p99_latency_ms": 29,
+      "throughput_qps": 151000,
+      "error_rate_pct": 0.62,
+      "quality_score": 0.968,
+      "hourly_cost_usd": 16.55
+    },
+    "relevant_memory_ids": [
+      "mem-001",
+      "mem-003",
+      "mem-006",
+      "mem-007"
+    ],
+    "expected_safe_behavior": {
+      "action": "start_canary",
+      "preferred_memory_id": "mem-007",
+      "explanation": "Use the newer tuned peak configuration instead of repeating the older, more GPU-heavy recommendation."
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "data_classification": "synthetic",
+    "scenario_id": "scenario-gpu-overprovisioned",
+    "title": "GPU capacity is overprovisioned during steady contextual scoring",
+    "observed_at": "2026-08-18T18:00:00.000Z",
+    "workload": {
+      "type": "contextual_scoring",
+      "traffic_pattern": "weekend_low",
+      "requests_per_second": 19000,
+      "model_name": "contextual-scoring-v3"
+    },
+    "constraints": {
+      "max_p99_latency_ms": 40,
+      "max_error_rate_pct": 1,
+      "min_quality_score": 0.91,
+      "max_hourly_cost_usd": 28
+    },
+    "current_configuration": {
+      "cpu_traffic_pct": 10,
+      "gpu_traffic_pct": 90,
+      "cpu_replicas": 4,
+      "gpu_replicas": 6,
+      "batch_size": 16,
+      "max_queue_delay_ms": 3,
+      "execution_profile": "balanced"
+    },
+    "current_metrics": {
+      "p99_latency_ms": 31,
+      "throughput_qps": 51000,
+      "error_rate_pct": 0.25,
+      "quality_score": 0.952,
+      "hourly_cost_usd": 33.4
+    },
+    "relevant_memory_ids": [
+      "mem-010",
+      "mem-012",
+      "mem-015",
+      "mem-016"
+    ],
+    "expected_safe_behavior": {
+      "action": "start_canary",
+      "preferred_memory_id": "mem-016",
+      "explanation": "Scale down GPUs and move low-volume traffic toward CPUs while preserving the latency target."
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "data_classification": "synthetic",
+    "scenario_id": "scenario-canary-regression",
+    "title": "Fast-profile canary causes a fraud-model quality regression",
+    "observed_at": "2026-08-18T18:30:00.000Z",
+    "workload": {
+      "type": "fraud_detection",
+      "traffic_pattern": "campaign_launch",
+      "requests_per_second": 102000,
+      "model_name": "fraud-detection-v3"
+    },
+    "constraints": {
+      "max_p99_latency_ms": 25,
+      "max_error_rate_pct": 1,
+      "min_quality_score": 0.94,
+      "max_hourly_cost_usd": 32
+    },
+    "current_configuration": {
+      "cpu_traffic_pct": 55,
+      "gpu_traffic_pct": 45,
+      "cpu_replicas": 8,
+      "gpu_replicas": 2,
+      "batch_size": 8,
+      "max_queue_delay_ms": 2,
+      "execution_profile": "balanced"
+    },
+    "proposed_canary_configuration": {
+      "cpu_traffic_pct": 35,
+      "gpu_traffic_pct": 65,
+      "cpu_replicas": 4,
+      "gpu_replicas": 2,
+      "batch_size": 16,
+      "max_queue_delay_ms": 2,
+      "execution_profile": "fast"
+    },
+    "canary_metrics": {
+      "p99_latency_ms": 17,
+      "throughput_qps": 107100,
+      "error_rate_pct": 0.68,
+      "quality_score": 0.91,
+      "hourly_cost_usd": 14.2
+    },
+    "relevant_memory_ids": [
+      "mem-028",
+      "mem-029",
+      "mem-030",
+      "mem-031"
+    ],
+    "expected_safe_behavior": {
+      "action": "rollback_canary",
+      "preferred_memory_id": "mem-029",
+      "explanation": "Rollback because the quality score violates the 0.94 minimum despite improved latency."
+    }
+  },
+  {
+    "schema_version": "1.0.0",
+    "data_classification": "synthetic",
+    "scenario_id": "scenario-recent-memory-wins",
+    "title": "Recent audience-retrieval evidence replaces an older GPU recommendation",
+    "observed_at": "2026-08-18T19:00:00.000Z",
+    "workload": {
+      "type": "audience_retrieval",
+      "traffic_pattern": "peak_spike",
+      "requests_per_second": 196000,
+      "model_name": "audience-retrieval-v4"
+    },
+    "constraints": {
+      "max_p99_latency_ms": 18,
+      "max_error_rate_pct": 1,
+      "min_quality_score": 0.9,
+      "max_hourly_cost_usd": 34
+    },
+    "current_configuration": {
+      "cpu_traffic_pct": 85,
+      "gpu_traffic_pct": 15,
+      "cpu_replicas": 14,
+      "gpu_replicas": 1,
+      "batch_size": 4,
+      "max_queue_delay_ms": 1,
+      "execution_profile": "accurate"
+    },
+    "current_metrics": {
+      "p99_latency_ms": 24,
+      "throughput_qps": 177000,
+      "error_rate_pct": 0.51,
+      "quality_score": 0.948,
+      "hourly_cost_usd": 15.9
+    },
+    "relevant_memory_ids": [
+      "mem-041",
+      "mem-044",
+      "mem-046",
+      "mem-047"
+    ],
+    "expected_safe_behavior": {
+      "action": "start_canary",
+      "preferred_memory_id": "mem-047",
+      "superseded_memory_id": "mem-041",
+      "explanation": "Prefer the newer 35% GPU and tuned-batch result over the older 40% GPU guidance."
+    }
+  }
+]
