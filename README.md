@@ -4,6 +4,8 @@ A live, synthetic AdTech market where two autonomous Mastra optimizers receive t
 
 No real bids are submitted and no advertiser money is spent.
 
+**Demo video:** [Watch the 90-second Bidstream Arena demo](https://drive.google.com/file/d/1o-Hb9HMxcVVBpDlrk1ZqeyAOB_4Iueic/view?usp=sharing)
+
 ## What the demo shows
 
 - A seeded stream of bid requests, wins, impressions, clicks, conversions, and delayed fraud labels.
