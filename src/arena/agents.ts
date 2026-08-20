@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { auctionBaselineOptimizer, auctionMemoryOptimizer } from "../mastra/agents/auction-agents";
 import { recallAuctionMemories } from "./memory";
 import type { AgentKind, AgentObservation, Exchange, MemoryEvidence, OptimizationAction } from "./types";
 
@@ -10,21 +9,31 @@ const actionSchema = z.object({
   exchanges: z.array(exchanges).min(1), rationale: z.string(),
   selectedMemoryIds: z.array(z.string()).default([]), rejectedMemoryIds: z.array(z.string()).default([]),
 });
+const actionJsonSchema = {
+  type: "object",
+  properties: {
+    type: { type: "string", enum: ["adjust_policy", "hold"] },
+    bidMultiplier: { type: "number" }, pacingMultiplier: { type: "number" },
+    exchanges: { type: "array", items: { type: "string", enum: ["trusted-one", "trusted-two", "open-market", "bargain-net"] }, minItems: 1 },
+    rationale: { type: "string" }, selectedMemoryIds: { type: "array", items: { type: "string" } },
+    rejectedMemoryIds: { type: "array", items: { type: "string" } },
+  },
+  required: ["type", "bidMultiplier", "pacingMultiplier", "exchanges", "rationale", "selectedMemoryIds", "rejectedMemoryIds"],
+  additionalProperties: false,
+} as const;
+const mastraUrl = process.env.MASTRA_URL ?? "http://localhost:4111";
 
 export async function decide(kind: AgentKind, observation: AgentObservation): Promise<{ action: OptimizationAction; evidence: MemoryEvidence[]; source: "llm" | "fallback" }> {
   let evidence: MemoryEvidence[] = [];
   if (kind === "memory") evidence = (await recallAuctionMemories("campaign underpacing bad supply delayed attribution CPA ROAS invalid traffic", 5)).evidence;
   const prompt = `Checkpoint ${observation.checkpoint}. Observation JSON:\n${JSON.stringify(observation)}\n${kind === "memory" ? `Retrieved evidence JSON:\n${JSON.stringify(evidence)}` : "No historical memory is available."}\nChoose the next policy.`;
   try {
-    const result = await Promise.race([
-      (kind === "memory" ? auctionMemoryOptimizer : auctionBaselineOptimizer).generate(prompt, {
-        // The arena has already completed and recorded Elasticsearch recall above.
-        // Disable a duplicate tool round-trip so the live decision fits the demo window.
-        ...(kind === "memory" ? { activeTools: [] } : {}),
-        structuredOutput: { schema: actionSchema },
-      }),
-      new Promise<never>((_, reject) => setTimeout(() => reject(new Error("agent timeout")), 13000)),
-    ]);
+    const response = await fetch(`${mastraUrl}/api/agents/auction-${kind}-optimizer/generate`, {
+      method: "POST", headers: { "content-type": "application/json" }, signal: AbortSignal.timeout(13000),
+      body: JSON.stringify({ messages: prompt, activeTools: [], structuredOutput: { schema: actionJsonSchema } }),
+    });
+    if (!response.ok) throw new Error(`Mastra returned ${response.status}`);
+    const result = await response.json() as { object?: unknown };
     return { action: actionSchema.parse(result.object) as OptimizationAction, evidence, source: "llm" };
   } catch (error) {
     console.warn(`${kind} agent fallback`, error instanceof Error ? error.message : error);

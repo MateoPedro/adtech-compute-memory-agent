@@ -30,7 +30,7 @@ export default function Page() {
   return <main>
     <header>
       <div><p className="eyebrow">AUTONOMOUS MEDIA LAB · SYNTHETIC</p><h1>Bidstream <span>Arena</span></h1><p className="subtitle">Same auctions. Two optimizers. One remembers what failed.</p></div>
-      <div className="health"><Status ok={health?.simulator} label="SIM"/><Status ok={health?.elasticsearch} label="ES"/><Status ok={health?.model} label="LLM"/><a href="http://localhost:4111" target="_blank">Open traces ↗</a></div>
+      <div className="health"><Status ok={health?.simulator} label="SIM"/><Status ok={health?.mastra} label="MASTRA"/><Status ok={health?.elasticsearch} label="ES"/><Status ok={health?.model} label="LLM"/><a href="http://localhost:4111" target="_blank">Open traces ↗</a></div>
     </header>
     <section className="command">
       <div className="seed"><label>MARKET SEED</label><input value={seed} onChange={e => setSeed(Number(e.target.value))}/></div>

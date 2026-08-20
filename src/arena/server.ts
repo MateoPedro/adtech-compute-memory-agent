@@ -6,6 +6,7 @@ import "dotenv/config";
 
 const manager = new ArenaManager();
 const port = Number(process.env.ARENA_PORT ?? 4120);
+const mastraUrl = process.env.MASTRA_URL ?? "http://localhost:4111";
 const headers = { "access-control-allow-origin": "*", "access-control-allow-headers": "content-type,last-event-id", "access-control-allow-methods": "GET,POST,OPTIONS" };
 const json = (res: any, status: number, value: unknown) => { res.writeHead(status, { ...headers, "content-type": "application/json" }); res.end(JSON.stringify(value)); };
 const body = async (req: any) => { const chunks: Buffer[] = []; for await (const chunk of req) chunks.push(chunk); return chunks.length ? JSON.parse(Buffer.concat(chunks).toString()) : {}; };
@@ -14,7 +15,10 @@ createServer(async (req, res) => {
   if (req.method === "OPTIONS") return json(res, 204, {});
   const url = new URL(req.url ?? "/", `http://${req.headers.host}`); const parts = url.pathname.split("/").filter(Boolean);
   try {
-    if (url.pathname === "/health") return json(res, 200, { simulator: true, elasticsearch: await auctionMemoryHealth(), model: Boolean(process.env.OPENROUTER_API_KEY) });
+    if (url.pathname === "/health") {
+      let mastra = false; try { mastra = (await fetch(`${mastraUrl}/api/agents`, { signal: AbortSignal.timeout(1500) })).ok; } catch {}
+      return json(res, 200, { simulator: true, mastra, elasticsearch: await auctionMemoryHealth(), model: Boolean(process.env.OPENROUTER_API_KEY) });
+    }
     if (req.method === "POST" && url.pathname === "/api/runs") { const input = await body(req); return json(res, 201, manager.create(Number(input.seed ?? 20260819))); }
     if (req.method === "GET" && url.pathname === "/api/runs") return json(res, 200, manager.list());
     if (parts[0] === "api" && parts[1] === "runs" && parts[2]) {
