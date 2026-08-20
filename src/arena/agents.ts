@@ -17,7 +17,12 @@ export async function decide(kind: AgentKind, observation: AgentObservation): Pr
   const prompt = `Checkpoint ${observation.checkpoint}. Observation JSON:\n${JSON.stringify(observation)}\n${kind === "memory" ? `Retrieved evidence JSON:\n${JSON.stringify(evidence)}` : "No historical memory is available."}\nChoose the next policy.`;
   try {
     const result = await Promise.race([
-      (kind === "memory" ? auctionMemoryOptimizer : auctionBaselineOptimizer).generate(prompt, { structuredOutput: { schema: actionSchema } }),
+      (kind === "memory" ? auctionMemoryOptimizer : auctionBaselineOptimizer).generate(prompt, {
+        // The arena has already completed and recorded Elasticsearch recall above.
+        // Disable a duplicate tool round-trip so the live decision fits the demo window.
+        ...(kind === "memory" ? { activeTools: [] } : {}),
+        structuredOutput: { schema: actionSchema },
+      }),
       new Promise<never>((_, reject) => setTimeout(() => reject(new Error("agent timeout")), 13000)),
     ]);
     return { action: actionSchema.parse(result.object) as OptimizationAction, evidence, source: "llm" };

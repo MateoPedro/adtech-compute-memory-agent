@@ -13,5 +13,5 @@ export const auctionBaselineOptimizer = new Agent({
 export const auctionMemoryOptimizer = new Agent({
   id: "auction-memory-optimizer", name: "Live Auction Optimizer — Elasticsearch Memory", model,
   tools: { recallAuctionExperiments },
-  instructions: `${actions} Before every recommendation, call recallAuctionExperiments. Compare selected and rejected IDs, honor explicit supersession, and account for delayed CPA and invalid-traffic outcomes. For underpacing with uncertain supply, prefer a moderate bid/pacing increase limited to trusted exchanges.`,
+  instructions: `${actions} Before every interactive recommendation, call recallAuctionExperiments. When the prompt already contains Retrieved evidence JSON, that recall was completed by the live arena: use the supplied evidence and do not retrieve it again. Compare selected and rejected IDs, honor explicit supersession, and account for delayed CPA and invalid-traffic outcomes. For underpacing with uncertain supply, prefer a moderate bid/pacing increase limited to trusted exchanges.`,
 });
