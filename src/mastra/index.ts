@@ -12,9 +12,10 @@
 import { Mastra } from "@mastra/core";
 import { Observability, MastraStorageExporter } from "@mastra/observability";
 import { adtechMemoryOptimizer, adtechOptimizerBaseline } from "./agents/adtech-agents";
+import { auctionBaselineOptimizer, auctionMemoryOptimizer } from "./agents/auction-agents";
 
 export const mastra = new Mastra({
-  agents: { adtechOptimizerBaseline, adtechMemoryOptimizer },
+  agents: { adtechOptimizerBaseline, adtechMemoryOptimizer, auctionBaselineOptimizer, auctionMemoryOptimizer },
   // Records agent traces (LLM turns, tool calls, ES|QL queries) so they show
   // up in Studio's Traces view - the demo and the judging rubric both use it.
   observability: new Observability({

@@ -1,60 +1,83 @@
-# AdTech Compute Memory Agent
+# Bidstream Arena
 
-A Mastra agent that uses time-decayed episodic memory in Elasticsearch to safely optimize synthetic CPU/GPU advertising workloads.
+A live, synthetic AdTech market where two autonomous Mastra optimizers receive the same OpenRTB-style auctions. One reacts only to current signals; the other uses time-decayed Elasticsearch experiment memory to avoid repeating a known supply-quality failure.
 
-## What the demo proves
+No real bids are submitted and no advertiser money is spent.
 
-The same incident is sent to two agents in Mastra Studio:
+## What the demo shows
 
-- **AdTech Optimizer — No Memory** makes a reasonable but ungrounded hypothesis.
-- **AdTech Optimizer — Elasticsearch Memory** retrieves prior experiments with ES|QL `FORK`, `FUSE LINEAR`, and `DECAY`; recognizes that `mem-007` supersedes `mem-001`; proposes a 10% canary; waits for approval; evaluates every constraint; then promotes or rolls back and stores the result.
+- A seeded stream of bid requests, wins, impressions, clicks, conversions, and delayed fraud labels.
+- Two isolated campaign environments receiving identical auction opportunities and latent outcomes.
+- Three autonomous policy checkpoints in a 60–90 second run.
+- Deterministic guardrails around model-proposed bid, pacing, and exchange changes.
+- An older experiment (`auction-mem-001`) recommending aggressive bids and broad supply.
+- A newer experiment (`auction-mem-007`) superseding it after delayed CPA and invalid-traffic regression.
+- Automatic rollback, constraint scoring, a final winner, and idempotent outcome storage.
 
-Everything that changes infrastructure is explicitly synthetic.
+The original CPU/GPU incident agents remain available in Mastra Studio as a legacy demo.
 
-## Setup
+## Requirements
 
-Requires Node 20.20+, Elasticsearch Serverless, and an OpenRouter key.
+- Node.js 20.20 or newer
+- Elasticsearch Serverless
+- OpenRouter API key
 
-```bash
-cp .env.example .env
-npm install
-npm run ingest:adtech
-npm run dev
+Copy `.env.example` to `.env` and provide:
+
+```env
+ELASTICSEARCH_URL=
+ELASTICSEARCH_API_KEY=
+OPENROUTER_API_KEY=
+INFERENCE_ID=
+ARENA_PORT=4120
+NEXT_PUBLIC_ARENA_API=http://localhost:4120
 ```
 
-Ingestion uses stable Elasticsearch IDs and is safe to run repeatedly.
+`INFERENCE_ID` is optional when the Elasticsearch deployment supplies a default inference endpoint.
 
-## Primary demo
+## Setup and start
 
-Select **AdTech Optimizer — No Memory** and send:
+```bash
+npm install
+npm run ingest:adtech
+npm run ingest:auction
+npm run dev:arena
+```
 
-> Investigate `scenario-peak-latency`. Recommend the safest configuration change and explain your evidence.
+Ingestion uses stable document IDs and is safe to run repeatedly. Open:
 
-It identifies the 29 ms p99 breach but discloses that its recommendation has no historical evidence.
+- Arena dashboard: [http://localhost:3001](http://localhost:3001)
+- Mastra Studio and traces: [http://localhost:4111](http://localhost:4111)
+- Simulator health: [http://localhost:4120/health](http://localhost:4120/health)
 
-Send the identical prompt to **AdTech Optimizer — Elasticsearch Memory**. The trace should show `get-incident`, `recall-optimization-memories`, and a proposal selecting `mem-007` over stale `mem-001`. The agent must stop for approval.
-
-Then send:
-
-> I explicitly approve this synthetic 10% canary. Run it, enforce every constraint, and store the completed outcome.
-
-The trace should show `run-canary`, `finalize-canary`, and `store-optimization-memory`. The chosen 35% GPU, batch-16 configuration reaches 15 ms p99 while preserving quality and budget, so it is promoted.
-
-## Safety backup
-
-Ask the memory agent to investigate `scenario-canary-regression`. After approval, it must roll back: latency improves to 17 ms, but quality falls to 0.91 against the required 0.94 minimum.
+The arena falls back to local memory evidence and safe deterministic decisions if Elasticsearch or OpenRouter is temporarily unavailable. Health indicators make that state visible. Full Elasticsearch traces require the configured services.
 
 ## 90-second presentation
 
-1. **Problem (10s):** AdTech loses revenue when bids miss latency deadlines, but blindly adding GPUs wastes money.
-2. **Without memory (15s):** Show the baseline agent's unsupported hypothesis.
-3. **With memory (30s):** Show the same prompt retrieving `mem-001` and `mem-007`; point out `FORK`, weighted `FUSE`, `DECAY`, and explicit supersession.
-4. **Controlled action (25s):** Approve the canary and show constraint evaluation and promotion.
-5. **Learning loop (10s):** Show the newly stored memory and explain that the next incident benefits.
+1. **Set the stakes (10s):** The campaign is underpacing in its best conversion window. Two optimizers receive the exact same auctions.
+2. **Launch the market (10s):** Use seed `20260819` and click **Launch live market**.
+3. **First checkpoint (20s):** The baseline raises bids and broadens supply. The memory optimizer retrieves `auction-mem-001` and `auction-mem-007`, rejects the stale experiment, and stays on trusted exchanges.
+4. **Watch the reversal (25s):** The baseline initially delivers faster. Delayed conversion and fraud signals then expose poor CPA and invalid traffic, triggering an automatic rollback.
+5. **Show the verdict (15s):** The memory strategy wins only if delivery, CPA, ROAS, and invalid-traffic constraints pass.
+6. **Show the learning loop (10s):** Open Mastra traces, highlight `FORK`, weighted `FUSE`, and `DECAY`, and explain that both completed outcomes are stored with deterministic IDs.
 
-## Tuning
+## Commands
 
-- `ADTECH_MEMORY_DECAY_DAYS` controls recency decay (default `180`, tuned for the fixed-date demo dataset).
-- `ADTECH_BM25_WEIGHT` controls exact operational matching (default `0.65`).
+```bash
+npm run arena             # simulator API only
+npm run dashboard         # dashboard only, port 3001
+npm run dev               # legacy Mastra Studio only
+npm run dev:arena         # all three services
+npm run ingest:auction    # idempotently seed 56 auction memories
+npm test                  # simulator and guardrail unit tests
+npm run check             # backend TypeScript check
+npm run build:dashboard   # production dashboard build
+```
 
-The original starter examples remain under `src/`, but only the two AdTech agents are registered in Studio.
+## Safety model
+
+The language models propose bounded actions. Deterministic application code owns bid-change limits, observation thresholds, spend constraints, cooldown behavior, rollback, scoring, and persistence. Invalid or timed-out agent output becomes a safe fallback policy rather than blocking the live run.
+
+## Legacy Studio demo
+
+The existing **AdTech Optimizer — No Memory** and **AdTech Optimizer — Elasticsearch Memory** agents still support `scenario-peak-latency` and `scenario-canary-regression`. The new Studio agents are **Live Auction Optimizer — No Memory** and **Live Auction Optimizer — Elasticsearch Memory**.
