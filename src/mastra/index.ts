@@ -11,17 +11,16 @@
  */
 import { Mastra } from "@mastra/core";
 import { Observability, MastraStorageExporter } from "@mastra/observability";
-import { advancedMemoryAgent } from "./agents/advanced-agent";
-import { movieRecBare, movieRecCatalog, movieRecPersonal } from "./agents/movie-agents";
+import { adtechMemoryOptimizer, adtechOptimizerBaseline } from "./agents/adtech-agents";
 
 export const mastra = new Mastra({
-  agents: { advancedMemoryAgent, movieRecBare, movieRecCatalog, movieRecPersonal },
+  agents: { adtechOptimizerBaseline, adtechMemoryOptimizer },
   // Records agent traces (LLM turns, tool calls, ES|QL queries) so they show
   // up in Studio's Traces view - the demo and the judging rubric both use it.
   observability: new Observability({
     configs: {
       default: {
-        serviceName: "hacknight-advanced",
+        serviceName: "adtech-compute-memory-agent",
         exporters: [new MastraStorageExporter()],
       },
     },

@@ -1,8 +1,8 @@
 {
-  "name": "hacknight-advanced",
+  "name": "adtech-compute-memory-agent",
   "version": "1.0.0",
   "private": true,
-  "description": "ADVANCED starter: Mastra agent with episodic, time-decayed memory on Elasticsearch (ES|QL FORK/FUSE/DECAY)",
+  "description": "Memory-driven infrastructure optimizer for synthetic AdTech CPU/GPU workloads",
   "type": "module",
   "engines": {
     "node": ">=20.20.0"
@@ -10,6 +10,8 @@
   "scripts": {
     "dev": "mastra dev",
     "setup": "tsx src/setup-indices.ts",
+    "ingest:adtech": "tsx src/ingest-optimization-memories.ts",
+    "check": "tsc --noEmit",
     "seed:movies": "tsx src/seed-movies.ts",
     "seed:nimbus": "tsx src/seed-memories.ts",
     "seed:sample": "tsx src/seed-sample.ts",
