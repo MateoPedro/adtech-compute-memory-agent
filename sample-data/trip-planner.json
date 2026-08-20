@@ -1,0 +1,93 @@
+[
+  {
+    "type": "decision",
+    "title": "Book social hostels for all trips",
+    "content": "Decided to book social hostels with shared dorms for all my trips this year. Rationale: budget caps at $60/night and hostels average $35; the common rooms and group dinners are how I actually meet people traveling solo; hostel walking tours have been the highlight of my last three trips; and packing light is easy when the room is just a bed anyway. Priority list: hostels rated 8.5+ with a bar or communal kitchen, booked through the app where my loyalty tier gets free cancellation. Private rooms only if a dorm is sold out.",
+    "tags": ["lodging", "budget", "style"],
+    "ageDays": 310
+  },
+  {
+    "type": "decision",
+    "title": "Switch to quiet boutique hotels - hostel decision superseded",
+    "content": "New job means more budget and less tolerance for dorm noise - I sleep badly and it ruins the next day. Booking quiet boutique hotels or private rooms from now on, ideally under 30 rooms with good blackout curtains. The hostel decision is superseded.",
+    "tags": ["lodging", "budget", "style", "supersedes"],
+    "ageDays": 30
+  },
+  {
+    "type": "decision",
+    "title": "Pack the full checked bag with options",
+    "content": "Standing decision: check the big bag and pack options. Rationale: I kept regretting not having hiking shoes, a nice dinner outfit, or a real jacket when plans changed mid-trip; checked bags are free on my airline status; and dragging a heavy carry-on through connections hurts my shoulder more than waiting at a carousel. Packing list template lives in my notes app under 'big bag master list' - 46 items, everything from swim gear to a packable duffel for souvenirs.",
+    "tags": ["packing", "logistics"],
+    "ageDays": 270
+  },
+  {
+    "type": "decision",
+    "title": "Carry-on only from now on - checked bag superseded",
+    "content": "After the airline lost my bag in a connection for the second time this year, I'm going carry-on only: one 40L bag, merino layers, one pair of shoes. The checked-bag decision is superseded. If a trip truly needs gear, rent it there.",
+    "tags": ["packing", "logistics", "supersedes"],
+    "ageDays": 45
+  },
+  {
+    "type": "decision",
+    "title": "Eat everything - food is the itinerary",
+    "content": "Food philosophy for travel: eat everything, no restrictions, food IS the itinerary. Rationale: my favorite travel memories are the pork-heavy night markets in Taipei, the brisket crawl in Texas, and the seafood omakase splurge in Osaka. Rule of thumb: one street-food day, one mid-range local institution, one splurge meal per city, researched via local food blogs rather than top-10 lists. Never book a restaurant more than a day ahead - spontaneity finds the good stuff.",
+    "tags": ["food", "style"],
+    "ageDays": 200
+  },
+  {
+    "type": "decision",
+    "title": "Vegetarian now - update all restaurant planning",
+    "content": "I went vegetarian last month and it's sticking. All restaurant research and recommendations need to be vegetarian-friendly from now on; the old eat-everything philosophy is superseded. Splurge meals become tasting menus with a vegetarian option confirmed in advance.",
+    "tags": ["food", "style", "supersedes"],
+    "ageDays": 21
+  },
+  {
+    "type": "pattern",
+    "title": "Aisle seat, always",
+    "content": "Always book the aisle seat: I get up twice per flight minimum and hate climbing over people. Exit row aisle if under $40 extra. Window only on flights under two hours with mountain approaches worth seeing.",
+    "tags": ["flights", "preferences", "pattern"],
+    "ageDays": 290
+  },
+  {
+    "type": "pattern",
+    "title": "Trains over flights under six hours",
+    "content": "For any leg under six hours of rail time, take the train over flying: city-center to city-center beats airport overhead, and I get work done onboard. Book a window seat on the scenic side, researched per route.",
+    "tags": ["trains", "flights", "logistics", "pattern"],
+    "ageDays": 240
+  },
+  {
+    "type": "feedback",
+    "title": "Stop recommending museums",
+    "content": "Feedback on trip plans: stop front-loading museums. I skip most of them anyway. I'd rather have one great market, a long walk through a neighborhood, and time to sit in a plaza doing nothing. One museum per trip, maximum, and only if it's truly singular.",
+    "tags": ["itinerary", "preferences", "feedback"],
+    "ageDays": 170
+  },
+  {
+    "type": "context",
+    "title": "Passport renewal in progress",
+    "content": "Passport expires in seven months, which blocks several visa-on-arrival countries. Renewal submitted; expedited processing estimated four weeks. No international bookings past security until the new one arrives.",
+    "tags": ["documents", "blocker"],
+    "ageDays": 55
+  },
+  {
+    "type": "decision",
+    "title": "No red-eye flights, no arrivals after 10pm",
+    "content": "Standing rule: no red-eyes and no arrivals after 10pm. I lose the entire next day recovering, which costs more than the fare saves. Morning departures preferred even at a price premium.",
+    "tags": ["flights", "preferences"],
+    "ageDays": 130
+  },
+  {
+    "type": "feedback",
+    "title": "The Lisbon boutique hotel was exactly right",
+    "content": "Feedback after Lisbon: the 22-room boutique hotel with blackout curtains and a quiet street was exactly right - best trip sleep in years. More like this. The rooftop breakfast mattered more than the gym I didn't use.",
+    "tags": ["lodging", "feedback"],
+    "ageDays": 18
+  },
+  {
+    "type": "context",
+    "title": "Kyoto trip window penciled for late autumn",
+    "content": "Penciling a Kyoto trip for the late-autumn foliage window. Constraints to plan around: vegetarian food research (shojin ryori temple cuisine is the angle), quiet lodging near but not in the Gion crowds, and the rail pass math for a Tokyo-Kyoto-Osaka triangle, carry-on only.",
+    "tags": ["trip", "planning"],
+    "ageDays": 7
+  }
+]

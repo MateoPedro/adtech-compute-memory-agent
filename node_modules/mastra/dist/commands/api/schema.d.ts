@@ -1,0 +1,6 @@
+import type { ResolvedTarget } from './target.js';
+import type { ApiCommandDescriptor, ApiCommandExample } from './types.js';
+export declare function getCommandSchema(descriptor: ApiCommandDescriptor, target: ResolvedTarget): Promise<unknown>;
+export declare function buildCommandUsage(descriptor: ApiCommandDescriptor): string;
+export declare function buildCommandExamples(descriptor: ApiCommandDescriptor): ApiCommandExample[];
+//# sourceMappingURL=schema.d.ts.map

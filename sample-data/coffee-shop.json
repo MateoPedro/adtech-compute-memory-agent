@@ -1,0 +1,100 @@
+[
+  {
+    "type": "decision",
+    "title": "Oatly as the house oat milk",
+    "content": "After a three-week side-by-side trial of Oatly, Minor Figures, and Califia Barista, we standardized on Oatly Barista Edition as the house oat milk. Rationale: best microfoam stability for latte art, most consistent steaming behavior across our two La Marzocco machines, customer taste test preferred it 14-6, and our distributor bundles it with our cup order for free delivery. All baristas should dial steam pressure to the laminated Oatly card by the machine. We committed to a quarterly standing order of 40 cases.",
+    "tags": ["milk", "suppliers", "menu"],
+    "ageDays": 300
+  },
+  {
+    "type": "decision",
+    "title": "Switch house oat milk to Minor Figures - Oatly decision superseded",
+    "content": "Oatly's distributor raised prices 30% and deliveries slipped twice this month. We are switching the house oat milk to Minor Figures effective immediately. The earlier Oatly decision is superseded. Steam settings differ - see the new card by the machine.",
+    "tags": ["milk", "suppliers", "menu", "supersedes"],
+    "ageDays": 25
+  },
+  {
+    "type": "decision",
+    "title": "Blackout dark roast as the house espresso",
+    "content": "We selected the Blackout dark roast from Ritual Roasters as our house espresso blend. Rationale: it cuts through milk drinks, which are 70% of our tickets; it is forgiving on dial-in so new baristas waste less coffee; the chocolate-heavy profile scored highest with our morning commuter regulars in two cupping sessions; and Ritual guarantees 48-hour freshness on standing orders. Recipe: 18.5g in, 38g out, 27-29 seconds. Decaf remains the Swiss Water process from the same roaster for supplier simplicity.",
+    "tags": ["espresso", "beans", "menu", "suppliers"],
+    "ageDays": 280
+  },
+  {
+    "type": "decision",
+    "title": "House espresso moves to Daybreak medium roast - Blackout superseded",
+    "content": "Customer preferences have shifted lighter and our single-origin pour-overs now outsell dark drinks. The house espresso moves from Blackout to the Daybreak medium roast. The Blackout decision is superseded. New recipe: 18g in, 40g out, 30-32 seconds.",
+    "tags": ["espresso", "beans", "menu", "supersedes"],
+    "ageDays": 40
+  },
+  {
+    "type": "decision",
+    "title": "Bake all pastries in-house",
+    "content": "We committed to baking all pastries in-house: croissants, morning buns, and two rotating seasonal items. Rationale: 65% margin versus 40% on wholesale pastry, the smell drives walk-in traffic (we measured a 12% bump during test weeks), full control over quality and allergens, and our 4am baker shift pairs naturally with opening prep. Equipment: the used deck oven from the Mission location remodel. Recipes live in the shared drive under /kitchen/pastry-program.",
+    "tags": ["pastry", "kitchen", "menu"],
+    "ageDays": 330
+  },
+  {
+    "type": "decision",
+    "title": "Partner with Marigold Bakery for pastries - in-house baking superseded",
+    "content": "Our baker moved away and hiring a replacement at current wages proved impossible for three months running. We are partnering with Marigold Bakery for daily 6am pastry delivery. The in-house baking decision is superseded. The deck oven stays for toast service and future reconsideration.",
+    "tags": ["pastry", "kitchen", "suppliers", "supersedes"],
+    "ageDays": 14
+  },
+  {
+    "type": "decision",
+    "title": "No laptops at the window bar on weekends",
+    "content": "Weekend seating pressure means the six window bar seats are laptop-free Saturday and Sunday. Small table cards explain the policy; staff should point to the standing bar for laptop users rather than argue.",
+    "tags": ["seating", "policy"],
+    "ageDays": 260
+  },
+  {
+    "type": "pattern",
+    "title": "Morning rush staffing pattern",
+    "content": "Standard pattern for the 7-9:30am rush: two on bar, one on register, one floating on mobile orders. Mobile orders batch every five minutes, not first-come-first-served. This kept average ticket time under four minutes through last quarter.",
+    "tags": ["staffing", "operations", "pattern"],
+    "ageDays": 220
+  },
+  {
+    "type": "feedback",
+    "title": "Regulars want the punch card back",
+    "content": "At least a dozen regulars complained that the app-only loyalty program excludes people who don't want another app. Consensus feedback: bring back a physical punch card option alongside the app.",
+    "tags": ["loyalty", "customers", "feedback"],
+    "ageDays": 180
+  },
+  {
+    "type": "decision",
+    "title": "Compostable cups and lids only",
+    "content": "All to-go ware moves to certified compostable cups and lids despite the 8-cent unit cost increase. Aligns with the city's zero-waste ordinance a year ahead of the deadline and tested well with customers. Discount of 25 cents for bring-your-own-cup stays.",
+    "tags": ["sustainability", "supplies", "policy"],
+    "ageDays": 160
+  },
+  {
+    "type": "context",
+    "title": "Espresso machine two needs a rebuild",
+    "content": "Machine two's group head gasket is failing and steam pressure drifts during rush. Technician quoted a full rebuild; scheduled during the slow week after Labor Day. Until then it is the backup machine only - dial in on machine one.",
+    "tags": ["equipment", "maintenance", "blocker"],
+    "ageDays": 90
+  },
+  {
+    "type": "pattern",
+    "title": "Seasonal menu items launch on the first Monday",
+    "content": "New seasonal drinks always launch the first Monday of the month with a staff tasting the Friday before. Chalkboard and Instagram post go up the same morning. Off-cycle launches confuse regulars and staff alike - don't.",
+    "tags": ["menu", "marketing", "pattern"],
+    "ageDays": 75
+  },
+  {
+    "type": "feedback",
+    "title": "Minor Figures steams differently - training needed",
+    "content": "Baristas report the new oat milk stretches faster than Oatly did and over-aerates if you use the old timing. Two customer complaints about foamy lattes this week. Action: five-minute steam demo at Thursday's staff meeting.",
+    "tags": ["milk", "training", "feedback"],
+    "ageDays": 12
+  },
+  {
+    "type": "context",
+    "title": "Marigold delivery works; croissant sellout by 10am",
+    "content": "First two weeks of Marigold Bakery delivery: quality praised, but croissants sell out by 10am on weekends. Bumping the Saturday/Sunday order from 24 to 36. Revisit after a month of sales data.",
+    "tags": ["pastry", "suppliers", "sales"],
+    "ageDays": 3
+  }
+]

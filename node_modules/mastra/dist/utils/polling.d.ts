@@ -1,0 +1,3 @@
+export declare function isRetryablePollingError(error: unknown): boolean;
+export declare function withPollingRetries<T>(fn: () => Promise<T>, maxRetries?: number): Promise<T>;
+//# sourceMappingURL=polling.d.ts.map

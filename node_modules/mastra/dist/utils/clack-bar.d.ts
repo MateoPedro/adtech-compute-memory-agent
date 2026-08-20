@@ -1,0 +1,9 @@
+/** Write a line to stdout prefixed with the clack pipe for visual continuity. */
+export declare function writeBarLine(line: string): Promise<void>;
+/**
+ * Wraps `process.stdout.write` so every line printed during `fn()` is
+ * prefixed with the clack bar character, keeping streamed output visually
+ * nested under the current clack step.
+ */
+export declare function withBarPrefix<T>(fn: () => Promise<T>): Promise<T>;
+//# sourceMappingURL=clack-bar.d.ts.map
